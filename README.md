@@ -1,81 +1,162 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-}
 
-.active, .accordion:hover {
-  background-color: #ccc;
-}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      table,
+      tr {
+        border-collapse: collapse;
+        font-size: 15px;
+      }
 
-.accordion:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
+      #Course {
+        width: 100px;
+      }
 
-.active:after {
-  content: "\2212";
-}
+      #Assignment {
+        width: 250px;
+      }
 
-.panel {
-  padding: 0 18px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-</style>
-</head>
-<body>
+      th,
+      td {
+        padding: 5px;
+      }
 
-<h2>Accordion with symbols</h2>
-<p>In this example we have added a "plus" sign to each button. When the user clicks on the button, the "plus" sign is replaced with a "minus" sign.</p>
-<button class="accordion">Section 1</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
+      tr {
+        border-bottom: 1px solid blueviolet;
+        font-size: 15px;
+      }
 
-<button class="accordion">Section 2</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
+      td {
+        text-align: center;
+      }
 
-<button class="accordion">Section 3</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
+      table {
+        font-family: arial, sans-serif;
+        width: 100%;
+      }
 
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+      th {
+        background-color: black;
+        color: white;
+      }
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
-}
-</script>
+      .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 0.5px solid blueviolet;
+        text-align: left;
+        outline: none;
+        font-size: 20px;
+        transition: 0.4s;
+      }
 
-</body>
+      .active,
+      .accordion:hover {
+        background-color: #ccc;
+      }
+
+      .panel {
+        padding: 0 10px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+      }
+
+      .accordion::after {
+        content: '\02795';
+        /* Unicode character for "plus" sign (+) */
+        font-size: 15px;
+        color: #777;
+        float: right;
+        margin-left: 5px;
+      }
+
+      .active::after {
+        content: "\2796";
+        /* Unicode character for "minus" sign (-) */
+      }
+
+      .morebtn {
+        font-family: arial, sans-serif;
+        font-size: 15px;
+        padding-bottom: 8px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <button class="accordion">Open Assignments</button>
+    <div class="panel">
+      <table id="openTable">
+        <tr>
+          <th class="Course">Course</th>
+          <th class="Course">Section</th>
+          <th class="Assignment">Assignment</th>
+          <th class="Course">Due Date</th>
+          <th class="Course">Due Time</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>ENG101</td>
+          <td>F21A</td>
+          <td>Graph Interpretation</td>
+          <td>4/20/69</td>
+          <td>4:20 pm</td>
+          <td><button class="morebtn">...</button></td>
+        </tr>
+        <tr>
+          <td>BIO101</td>
+          <td>F21B</td>
+          <td>Data Interpretation</td>
+          <td>4/20/69</td>
+          <td>4:20 pm</td>
+          <td><button class="morebtn">...</button></td>
+        </tr>
+      </table>
+    </div>
+    <button class="accordion">Archived Assignments</button>
+    <div class="panel">
+      <table id="archiveTable">
+        <tr>
+          <th class="Course">Course</th>
+          <th class="Course">Section</th>
+          <th class="Assignment">Assignment</th>
+          <th class="Course">Due Date</th>
+          <th class="Course">Due Time</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>CIS101</td>
+          <td>F21C</td>
+          <td>Data Stuff</td>
+          <td>4/20/69</td>
+          <td>4:20 pm</td>
+          <td><button class="morebtn">...</button></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        });
+      }
+
+    </script>
+  </body>
+
 </html>
